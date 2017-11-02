@@ -12,9 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('login.index');
+})->name('index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('autenticar', 'LoginController@autenticar')->name('autenticar');
+
+Route::get('user/registro', function () {
+	return view('user.registro');
+})->name('user.registro');
+
+Route::post('user/registrar', 'UserController@registrar')->name('user.registrar');
