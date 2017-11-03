@@ -11,7 +11,8 @@ class LoginController extends Controller
     {
     	if(Auth::attempt(['cpf' => $r->cpf, 'password' => $r->password])){
 
-    		return view('home');
+    		return redirect()
+            ->route('home');
     	}else{
 
     		return redirect()

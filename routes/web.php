@@ -15,14 +15,24 @@ Route::get('/', function () {
     return view('login.index');
 })->name('index');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::post('autenticar', 'LoginController@autenticar')->name('autenticar');
+Route::get('/home', function(){
+	return view('home.index');
+})->name('home');
 
 Route::get('user/registro', function () {
 	return view('user.registro');
 })->name('user.registro');
 
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('autenticar', 'LoginController@autenticar')->name('autenticar');
 Route::post('user/registrar', 'UserController@registrar')->name('user.registrar');
+
+Route::middleware('auth')->group(function() {
+	//usuário
+	Route::get('user/listar', 'UserController@listar')->name('user.listar');
+	Route::get('user/deletar/{id}', 'UserController@deletar')->name('user.deletar');
+	Route::get('user/detalhes/{id}', 'UserController@detalhes')->name('user.detalhes');
+});
