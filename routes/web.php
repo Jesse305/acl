@@ -33,6 +33,7 @@ Route::post('user/registrar', 'UserController@registrar')->name('user.registrar'
 Route::middleware('auth')->group(function() {
 	//usuário
 	Route::get('user/listar', 'UserController@listar')->name('user.listar');
-	Route::get('user/deletar/{id}', 'UserController@deletar')->name('user.deletar');
+	Route::get('user/deletar/{usuario}', 'UserController@deletar')->name('user.deletar');
 	Route::get('user/detalhes/{id}', 'UserController@detalhes')->name('user.detalhes');
+	Route::post('user/permissoes/{usuario}', 'UserController@atribuiPermissoes')->name('user.permissoes');
 });

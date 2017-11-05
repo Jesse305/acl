@@ -10,6 +10,15 @@
 	</div>
 </div>
 
+@if(session('alerta'))
+<div class="row">
+	<div class="alert alert-{{session('alerta')['tipo']}}">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Atenção: </strong> {{session('alerta')['msg']}}
+	</div>
+</div>
+@endif
+
 <div class="row">
 	<table class="table table-bordered table-striped table-hover table-responsive">
 		<tr>
@@ -21,15 +30,24 @@
 	</table>
 </div>
 
-@if(!$usuario->isAdmin())
-<div class="row">
-	<label>Permissões:</label>
-	<form id="addPermissao" method="POST" action="">
-		@foreach($permissaos as $perm)
-		<label class="checkbox-inline"><input type="checkbox" name="permissaos[]" value="{{$perm->id}}"
-		>{{$perm->tipo}}</label>
-		@endforeach		
-	</form>
-</div>
+@if(Auth::user()->isAdmin())
+	@if(!$usuario->isAdmin())
+		<div class="row">
+			<label>Permissões:</label>
+			<form id="addPermissao" method="POST" action="{{route('user.permissoes', $usuario)}}">
+				{{csrf_field()}}
+				@foreach($permissaos as $perm)
+				<label class="checkbox-inline"><input type="checkbox" name="permissaos[]" value="{{$perm->id}}"
+					@foreach($usuario->permissoes as $p)
+						@if($p->id == $perm->id) checked @endif
+					@endforeach
+				>{{$perm->tipo}}</label>
+				@endforeach
+				<div class="pull-right">
+					<button type="submit" class="btn btn-success btn-sm" id="btn_perm">Aplicar</button>
+				</div>	
+			</form>
+		</div>
+	@endif
 @endif
 @endsection

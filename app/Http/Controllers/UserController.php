@@ -63,18 +63,21 @@ class UserController extends Controller
         }
     }
 
-    public function deletar($id)
+    public function deletar(User $usuario)
     {
         if(Auth::user()->can('deletar')){
 
-            User::findOrFail($id)->delete();
+            if($usuario->delete()){
 
-            return redirect()
-            ->back()
-            ->with('alerta', [
-                'tipo' => 'success',
-                'msg' => 'Usuário excluído com sucesso.',
-            ]);
+                $usuario->permissoes()->detach();
+
+                return redirect()
+                ->back()
+                ->with('alerta', [
+                    'tipo' => 'success',
+                    'msg' => 'Usuário excluído com sucesso.',
+                ]);
+            }
         }else{
 
             return redirect()
@@ -92,5 +95,18 @@ class UserController extends Controller
             'usuario' => User::findOrFail($id),
             'permissaos' => Permissao::all(),
         ]);
+    }
+
+    public function atribuiPermissoes(Request $r, User $usuario)
+    {
+        if($usuario->permissoes()->sync($r->permissaos)){
+
+            return redirect()
+            ->back()
+            ->with('alerta', [
+                'tipo' => 'success',
+                'msg' => 'Permissões Atualizadas com sucesso!'
+            ]);
+        }
     }
 }

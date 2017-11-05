@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('listar', function($user){
-            if($user->isAdmin()){
+            if($user->isAdmin() || $user->existePermissao('listar')){
                 return true;
             }
         });
@@ -50,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('deletar', function($user){
-            if($user->isAdmin()){
+            if($user->isAdmin() || $user->existePermissao('deletar')){
                 return true;
             }
         });

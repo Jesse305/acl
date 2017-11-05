@@ -37,4 +37,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Permissao::class,'user_permissaos', 'user_id', 'permissao_id');
     }
+
+    public function existePermissao($permissao)
+    {
+        if(is_string($permissao)){
+            return $this->permissoes->contains('tipo', $permissao);
+        }
+    }
 }
