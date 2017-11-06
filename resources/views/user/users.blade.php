@@ -35,7 +35,7 @@
 				<td>{{$u->cpf}}</td>
 				<td>{{$u->email}}</td>
 				<td align="center">
-					<a href="{{route('user.detalhes', $u->id)}}" class="btn btn-link" style="color: #0066ff;" title="visualizar"><i class="glyphicon glyphicon-eye-open"></i></a>
+					<a href="{{route('user.detalhes', $u)}}" class="btn btn-link" style="color: #0066ff;" title="visualizar"><i class="glyphicon glyphicon-eye-open"></i></a>
 					<a href="#" class="btn btn-link" style="color: #cc6600;" title="editar"><i class="glyphicon glyphicon-edit"></i></a>
 					<a href="{{route('user.deletar', $u)}}" class="btn btn-link" style="color: #b30000;" title="remover"><i class="glyphicon glyphicon-remove"></i></a>
 				</td>

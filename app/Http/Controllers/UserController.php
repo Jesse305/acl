@@ -89,10 +89,10 @@ class UserController extends Controller
         }
     }
 
-    public function detalhes($id)
+    public function detalhes(User $usuario)
     {
         return view('user.user', [
-            'usuario' => User::findOrFail($id),
+            'usuario' => $usuario,
             'permissaos' => Permissao::all(),
         ]);
     }

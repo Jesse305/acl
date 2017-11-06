@@ -34,6 +34,6 @@ Route::middleware('auth')->group(function() {
 	//usuário
 	Route::get('user/listar', 'UserController@listar')->name('user.listar');
 	Route::get('user/deletar/{usuario}', 'UserController@deletar')->name('user.deletar');
-	Route::get('user/detalhes/{id}', 'UserController@detalhes')->name('user.detalhes');
+	Route::get('user/detalhes/{usuario}', 'UserController@detalhes')->name('user.detalhes');
 	Route::post('user/permissoes/{usuario}', 'UserController@atribuiPermissoes')->name('user.permissoes');
 });
